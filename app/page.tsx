@@ -2,8 +2,12 @@ import { Button } from "@/components/ui/button"
 import Link from "next/link"
 import Image from "next/image"
 import { BackgroundPostsEffect } from "@/components/background-posts-effect"
+import { redirect } from "next/navigation"
 
 export default function LandingPage() {
+  // Redirect to newsfeed for now
+  redirect("/newsfeed")
+
   return (
     <div className="min-h-screen bg-background relative flex flex-col overflow-hidden">
       <BackgroundPostsEffect />
@@ -15,7 +19,7 @@ export default function LandingPage() {
             <Link href="/auth/login">Sign In</Link>
           </Button>
           <Button asChild className="bg-primary text-primary-foreground hover:bg-primary/90 rounded-lg">
-            <Link href="/auth/register">Get Started</Link>
+            <Link href="/newsfeed">Get Started</Link>
           </Button>
         </div>
       </header>
@@ -36,7 +40,7 @@ export default function LandingPage() {
                 size="lg"
                 className="bg-bublic-primary text-bublic-primary-foreground hover:bg-bublic-primary/90 rounded-lg px-8 py-6 text-lg"
               >
-                <Link href="/auth/register">Sign Up and Start Building</Link>
+                <Link href="/newsfeed">Enter the Network</Link>
               </Button>
             </div>
           </div>

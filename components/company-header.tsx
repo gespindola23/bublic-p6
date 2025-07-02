@@ -22,11 +22,10 @@ export function CompanyHeader({ company }: CompanyHeaderProps) {
       {/* Cover Image */}
       <div className="h-48 relative rounded-t-2xl">
         <Image
-          src={company.cover_url || "/resend-cover.png"}
+          src="https://images.unsplash.com/photo-1557804506-669a67965ba0?w=800&h=200&fit=crop"
           alt={`${company.name} cover image`}
-          layout="fill"
-          objectFit="cover"
-          className="rounded-t-2xl bg-gray-800"
+          fill
+          className="object-cover rounded-t-2xl"
         />
         <div className="absolute inset-0 bg-black/20 rounded-t-2xl"></div>
         <Button
@@ -46,10 +45,11 @@ export function CompanyHeader({ company }: CompanyHeaderProps) {
           <div className="-mt-24 flex-shrink-0">
             <div className="w-28 h-28 rounded-2xl bg-white p-2 ring-4 ring-white shadow-lg flex items-center justify-center">
               <Image
-                src={company.logo_url || "/resend-logo-new.jpeg"}
+                src="https://images.unsplash.com/photo-1611224923853-80b023f02d71?w=96&h=96&fit=crop"
                 alt={`${company.name} Logo`}
                 width={96}
                 height={96}
+                className="rounded-xl"
               />
             </div>
           </div>
