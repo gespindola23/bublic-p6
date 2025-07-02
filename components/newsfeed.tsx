@@ -1,94 +1,84 @@
-import { PostCard } from "@/components/post-card"
-import type { PostWithAuthor } from "@/types"
+"use client"
 
-interface NewsfeedProps {
-  posts: PostWithAuthor[]
+import { useState } from "react"
+import { PostCard } from "./post-card"
+import { Button } from "@/components/ui/button"
+import { PlusIcon } from "lucide-react"
+
+interface Post {
+  id: number
+  content: string
+  created_at: string
+  is_premium: boolean
+  price?: number
+  metrics?: any
+  attachment?: any
+  job_posting?: any
+  profiles: {
+    id: string
+    full_name: string
+    avatar_url: string
+    title: string
+    company: string
+    verified: boolean
+  }
+  companies?: {
+    id: string
+    name: string
+    logo_url: string
+  }
 }
 
-const mockPosts: PostWithAuthor[] = [
-  {
-    id: 1,
-    author: {
-      name: "Sarah Chen",
-      title: "Founder & CEO at TechFlow",
-      avatar: "/placeholder.svg?height=40&width=40",
-      verified: true,
-      company: "TechFlow",
-    },
-    content: "🚀 Milestone Alert! We just hit $50K MRR after 8 months of building in public. Here's what we learned...",
-    timestamp: "2h ago",
-    likes: 124,
-    comments: 23,
-    shares: 8,
-    isPremium: false,
-    isLiked: false,
-    isFollowing: false,
-    metrics: {
-      mrr: "$50,000",
-      growth: "+25%",
-    },
-  },
-  {
-    id: 2,
-    author: {
-      name: "Alex Rodriguez",
-      title: "Co-founder at DataViz Pro",
-      avatar: "/placeholder.svg?height=40&width=40",
-      verified: true,
-      company: "DataViz Pro",
-    },
-    content:
-      "The hardest part about fundraising isn't the pitch deck - it's maintaining team morale during the process. Here's how we kept our team motivated during our Series A...",
-    timestamp: "4h ago",
-    likes: 89,
-    comments: 15,
-    shares: 12,
-    isPremium: true,
-    isLiked: true,
-    isFollowing: true,
-    attachment: {
-      type: "pdf",
-      title: "Series A Fundraising Playbook",
-      gated: true,
-    },
-  },
-  {
-    id: 3,
-    author: {
-      name: "Maria Santos",
-      title: "Founder at GreenTech Solutions",
-      avatar: "/placeholder.svg?height=40&width=40",
-      verified: true,
-      company: "GreenTech Solutions",
-    },
-    content:
-      "We're hiring! Looking for a Senior Full-Stack Developer to join our mission of making sustainability accessible to everyone. Remote-first, competitive equity package 🌱",
-    timestamp: "6h ago",
-    likes: 67,
-    comments: 31,
-    shares: 19,
-    isPremium: false,
-    isLiked: false,
-    isFollowing: false,
-    jobPosting: {
-      title: "Senior Full-Stack Developer",
-      location: "Remote",
-      type: "Full-time",
-    },
-  },
-]
+interface NewsfeedProps {
+  initialPosts: Post[]
+}
 
-export function Newsfeed({ posts }: NewsfeedProps) {
+export function Newsfeed({ initialPosts }: NewsfeedProps) {
+  const [posts] = useState<Post[]>(initialPosts)
+
+  if (posts.length === 0) {
+    return (
+      <div className="text-center py-12">
+        <div className="mb-4">
+          <div className="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
+            <PlusIcon className="w-8 h-8 text-gray-400" />
+          </div>
+          <h3 className="text-lg font-medium text-gray-900 mb-2">No posts yet</h3>
+          <p className="text-gray-500 mb-6">Be the first to share something with the community!</p>
+          <Button>
+            <PlusIcon className="w-4 h-4 mr-2" />
+            Create Post
+          </Button>
+        </div>
+      </div>
+    )
+  }
+
   return (
     <div className="space-y-6">
-      {posts.length > 0 ? (
-        posts.map((post) => <PostCard key={post.id} post={post} />)
-      ) : (
-        <div className="text-center py-12 bg-white/60 backdrop-blur-xl border border-black/5 rounded-2xl">
-          <h3 className="text-lg font-semibold text-gray-900">Your feed is empty</h3>
-          <p className="text-gray-600 mt-2">Start following other founders or share your first post to get started!</p>
-        </div>
-      )}
+      {posts.map((post) => (
+        <PostCard
+          key={post.id}
+          post={{
+            id: post.id.toString(),
+            author: {
+              name: post.profiles.full_name,
+              avatar: post.profiles.avatar_url,
+              title: post.profiles.title,
+              company: post.profiles.company,
+              verified: post.profiles.verified,
+            },
+            content: post.content,
+            timestamp: new Date(post.created_at).toLocaleString(),
+            isPremium: post.is_premium,
+            price: post.price,
+            metrics: post.metrics,
+            attachment: post.attachment,
+            jobPosting: post.job_posting,
+            companyLogo: post.companies?.logo_url,
+          }}
+        />
+      ))}
     </div>
   )
 }
