@@ -1,14 +1,14 @@
 "use client"
 
 import { useEffect } from "react"
-import { useCreatePostModal } from "@/hooks/use-create-post-modal"
+import { useCommandPalette } from "@/hooks/use-command-palette"
 
 export function CommandKHandler() {
-  const { open } = useCreatePostModal()
+  const { open } = useCommandPalette()
 
   useEffect(() => {
     const down = (e: KeyboardEvent) => {
-      if (e.key === "k" && (e.metaKey || e.ctrlKey)) {
+      if (e.key === "/") {
         e.preventDefault()
         open()
       }

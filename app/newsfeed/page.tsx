@@ -214,21 +214,21 @@ function formatTimeAgo(dateString: string): string {
 
 export default function NewsfeedPage() {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50">
+    <div className="min-h-screen bg-gray-50/30">
       <Navbar />
-      <div className="container mx-auto px-4 py-8">
-        <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
-          {/* Left Sidebar */}
+      <div className="container mx-auto px-4 py-6">
+        <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
+          {/* Quick Actions Sidebar */}
           <div className="lg:col-span-1">
             <QuickActions />
           </div>
 
-          {/* Main Content */}
+          {/* Main Feed */}
           <div className="lg:col-span-2">
             <Newsfeed />
           </div>
 
-          {/* Right Sidebar */}
+          {/* Trending Sidebar */}
           <div className="lg:col-span-1">
             <TrendingSidebar />
           </div>

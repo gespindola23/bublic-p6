@@ -1,10 +1,9 @@
 "use client"
 
-import { Search, Bell, MessageCircle, Plus, Home, Building2, User, Settings } from "lucide-react"
+import { Search, Home, Building2, User, Settings, LogOut } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
-import { Badge } from "@/components/ui/badge"
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -13,13 +12,12 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
+import { NotificationCenter } from "@/components/notification-center"
+import { MessageCenter } from "@/components/message-center"
 import Link from "next/link"
 import Image from "next/image"
-import { useCreatePostModal } from "@/hooks/use-create-post-modal"
 
 export function Navbar() {
-  const createPostModal = useCreatePostModal()
-
   return (
     <nav className="sticky top-0 z-50 bg-white/80 backdrop-blur-xl border-b border-gray-200/50 shadow-sm">
       <div className="container mx-auto px-4">
@@ -56,22 +54,11 @@ export function Navbar() {
               </Link>
             </Button>
 
-            {/* Create Post */}
-            <Button variant="ghost" size="sm" onClick={createPostModal.onOpen} className="hidden sm:flex">
-              <Plus className="w-5 h-5" />
-            </Button>
+            {/* Consolidated Message Center */}
+            <MessageCenter />
 
-            {/* Messages */}
-            <Button variant="ghost" size="sm" className="relative hidden sm:flex">
-              <MessageCircle className="w-5 h-5" />
-              <Badge className="absolute -top-1 -right-1 w-5 h-5 p-0 text-xs bg-blue-500">3</Badge>
-            </Button>
-
-            {/* Notifications */}
-            <Button variant="ghost" size="sm" className="relative hidden sm:flex">
-              <Bell className="w-5 h-5" />
-              <Badge className="absolute -top-1 -right-1 w-5 h-5 p-0 text-xs bg-red-500">5</Badge>
-            </Button>
+            {/* Consolidated Notification Center */}
+            <NotificationCenter />
 
             {/* Profile Dropdown */}
             <DropdownMenu>
@@ -106,8 +93,17 @@ export function Navbar() {
                     <span>Analytics</span>
                   </Link>
                 </DropdownMenuItem>
+                <DropdownMenuItem asChild>
+                  <Link href="/company">
+                    <Building2 className="mr-2 h-4 w-4" />
+                    <span>My Company</span>
+                  </Link>
+                </DropdownMenuItem>
                 <DropdownMenuSeparator />
-                <DropdownMenuItem>Log out</DropdownMenuItem>
+                <DropdownMenuItem>
+                  <LogOut className="mr-2 h-4 w-4" />
+                  <span>Log out</span>
+                </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
           </div>

@@ -1,146 +1,150 @@
 "use client"
-import { Building2, Users, TrendingUp, Briefcase, BarChart3, Keyboard } from "lucide-react"
-import { Button } from "@/components/ui/button"
+
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Badge } from "@/components/ui/badge"
+import { Button } from "@/components/ui/button"
+import { Building2, Users, TrendingUp, Calendar, Eye, Heart, UserPlus } from "lucide-react"
 import Link from "next/link"
-import { useEffect } from "react"
 
 export function QuickActions() {
-  // Keyboard shortcuts
-  useEffect(() => {
-    const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.metaKey || e.ctrlKey) {
-        switch (e.key) {
-          case "c":
-            e.preventDefault()
-            window.location.href = "/company/create"
-            break
-          case "j":
-            e.preventDefault()
-            window.location.href = "/jobs/post"
-            break
-          case "m":
-            e.preventDefault()
-            window.location.href = "/metrics"
-            break
-          case "n":
-            e.preventDefault()
-            window.location.href = "/network"
-            break
-          case "a":
-            e.preventDefault()
-            window.location.href = "/analytics"
-            break
-        }
-      }
-    }
-
-    document.addEventListener("keydown", handleKeyDown)
-    return () => document.removeEventListener("keydown", handleKeyDown)
-  }, [])
-
   return (
     <div className="space-y-6">
-      {/* Profile Summary */}
-      <Card className="bg-white/70 backdrop-blur-2xl border-black/5 shadow-sm rounded-2xl">
-        <CardContent className="p-6 text-center">
-          <div className="w-16 h-16 bg-gradient-to-br from-gray-900 to-gray-600 rounded-2xl mx-auto mb-4 flex items-center justify-center shadow-sm">
-            <span className="text-white font-bold text-xl">JD</span>
+      {/* Profile Card */}
+      <Card className="bg-white/60 backdrop-blur-xl border border-black/5">
+        <CardContent className="p-6">
+          <div className="flex items-center space-x-4">
+            <Avatar className="w-16 h-16 ring-2 ring-white shadow-sm">
+              <AvatarImage
+                src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=64&h=64&fit=crop&crop=face"
+                alt="Profile"
+              />
+              <AvatarFallback>JD</AvatarFallback>
+            </Avatar>
+            <div className="flex-1">
+              <h3 className="font-semibold text-gray-900">John Doe</h3>
+              <p className="text-sm text-gray-600">Founder & CEO at TechCorp</p>
+              <div className="flex items-center space-x-4 mt-2 text-sm text-gray-500">
+                <span className="flex items-center">
+                  <Users className="w-3 h-3 mr-1" />
+                  1.2K followers
+                </span>
+                <span className="flex items-center">
+                  <UserPlus className="w-3 h-3 mr-1" />
+                  324 following
+                </span>
+              </div>
+            </div>
           </div>
-          <h3 className="font-semibold text-gray-900">John Doe</h3>
-          <p className="text-sm text-gray-600 mb-4">Founder & CEO at StartupCo</p>
-
-          {/* Follower Stats */}
-          <div className="flex justify-center space-x-6 mb-4 text-sm">
-            <div className="text-center">
-              <p className="font-semibold text-gray-900">2.4K</p>
-              <p className="text-gray-600 text-xs">Followers</p>
-            </div>
-            <div className="text-center">
-              <p className="font-semibold text-gray-900">892</p>
-              <p className="text-gray-600 text-xs">Following</p>
-            </div>
-            <div className="text-center">
-              <p className="font-semibold text-gray-900">156</p>
-              <p className="text-gray-600 text-xs">Posts</p>
-            </div>
-          </div>
-
-          <Button
-            variant="outline"
-            size="sm"
-            className="w-full bg-transparent border-black/10 hover:bg-black/5 rounded-lg"
-          >
+          <Button asChild className="w-full mt-4 bg-transparent" variant="outline">
             <Link href="/profile">View Profile</Link>
           </Button>
         </CardContent>
       </Card>
 
-      {/* Quick Actions */}
-      <Card className="bg-white/70 backdrop-blur-2xl border-black/5 shadow-sm rounded-2xl">
-        <CardHeader className="flex flex-row items-center justify-between pb-4">
-          <CardTitle className="text-lg font-semibold text-gray-900">Quick Actions</CardTitle>
-          <Badge variant="secondary" className="text-xs bg-gray-100 text-gray-700 rounded-lg">
-            <Keyboard className="w-3 h-3 mr-1" />⌘ + Key
-          </Badge>
+      {/* Following Companies */}
+      <Card className="bg-white/60 backdrop-blur-xl border border-black/5">
+        <CardHeader className="pb-3">
+          <CardTitle className="text-lg font-semibold flex items-center">
+            <Building2 className="w-5 h-5 mr-2" />
+            Following
+          </CardTitle>
         </CardHeader>
-        <CardContent className="space-y-2">
-          <Button variant="ghost" className="w-full justify-between hover:bg-black/5 rounded-lg" asChild>
-            <Link href="/company/create">
-              <div className="flex items-center">
-                <Building2 className="w-4 h-4 mr-3" />
-                Create Company
+        <CardContent className="space-y-3">
+          {[
+            {
+              name: "TechCorp",
+              avatar: "https://images.unsplash.com/photo-1560472354-b33ff0c44a43?w=32&h=32&fit=crop&crop=center",
+              description: "AI-powered solutions",
+              followers: "12K",
+            },
+            {
+              name: "InnovateLabs",
+              avatar: "https://images.unsplash.com/photo-1551434678-e076c223a692?w=32&h=32&fit=crop&crop=center",
+              description: "Blockchain technology",
+              followers: "8.5K",
+            },
+            {
+              name: "FinTech Solutions",
+              avatar: "https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=32&h=32&fit=crop&crop=center",
+              description: "Financial innovation",
+              followers: "15K",
+            },
+          ].map((company, index) => (
+            <div key={index} className="flex items-center space-x-3">
+              <Avatar className="w-10 h-10">
+                <AvatarImage src={company.avatar || "/placeholder.svg"} alt={company.name} />
+                <AvatarFallback>{company.name[0]}</AvatarFallback>
+              </Avatar>
+              <div className="flex-1 min-w-0">
+                <p className="font-medium text-sm text-gray-900 truncate">{company.name}</p>
+                <p className="text-xs text-gray-500 truncate">{company.description}</p>
               </div>
-              <Badge variant="outline" className="text-xs border-black/10 text-gray-600 rounded">
-                ⌘C
+              <Badge variant="secondary" className="text-xs">
+                {company.followers}
               </Badge>
-            </Link>
-          </Button>
-          <Button variant="ghost" className="w-full justify-between hover:bg-black/5 rounded-lg" asChild>
-            <Link href="/jobs/post">
-              <div className="flex items-center">
-                <Briefcase className="w-4 h-4 mr-3" />
-                Post Job
+            </div>
+          ))}
+        </CardContent>
+      </Card>
+
+      {/* Communities */}
+      <Card className="bg-white/60 backdrop-blur-xl border border-black/5">
+        <CardHeader className="pb-3">
+          <CardTitle className="text-lg font-semibold flex items-center">
+            <Users className="w-5 h-5 mr-2" />
+            Communities
+          </CardTitle>
+        </CardHeader>
+        <CardContent className="space-y-3">
+          {[
+            { name: "SaaS Founders", members: "2.1K", active: true },
+            { name: "AI Builders", members: "1.8K", active: false },
+            { name: "E-commerce Hub", members: "3.2K", active: true },
+          ].map((community, index) => (
+            <div key={index} className="flex items-center justify-between">
+              <div className="flex items-center space-x-2">
+                <div className={`w-2 h-2 rounded-full ${community.active ? "bg-green-500" : "bg-gray-300"}`} />
+                <span className="text-sm font-medium text-gray-900">{community.name}</span>
               </div>
-              <Badge variant="outline" className="text-xs border-black/10 text-gray-600 rounded">
-                ⌘J
+              <Badge variant="outline" className="text-xs">
+                {community.members}
               </Badge>
-            </Link>
-          </Button>
-          <Button variant="ghost" className="w-full justify-between hover:bg-black/5 rounded-lg" asChild>
-            <Link href="/metrics">
-              <div className="flex items-center">
-                <TrendingUp className="w-4 h-4 mr-3" />
-                Update Metrics
-              </div>
-              <Badge variant="outline" className="text-xs border-black/10 text-gray-600 rounded">
-                ⌘M
-              </Badge>
-            </Link>
-          </Button>
-          <Button variant="ghost" className="w-full justify-between hover:bg-black/5 rounded-lg" asChild>
-            <Link href="/analytics">
-              <div className="flex items-center">
-                <BarChart3 className="w-4 h-4 mr-3" />
-                Content Analytics
-              </div>
-              <Badge variant="outline" className="text-xs border-black/10 text-gray-600 rounded">
-                ⌘A
-              </Badge>
-            </Link>
-          </Button>
-          <Button variant="ghost" className="w-full justify-between hover:bg-black/5 rounded-lg" asChild>
-            <Link href="/network">
-              <div className="flex items-center">
-                <Users className="w-4 h-4 mr-3" />
-                Find Founders
-              </div>
-              <Badge variant="outline" className="text-xs border-black/10 text-gray-600 rounded">
-                ⌘N
-              </Badge>
-            </Link>
-          </Button>
+            </div>
+          ))}
+        </CardContent>
+      </Card>
+
+      {/* Weekly Stats */}
+      <Card className="bg-white/60 backdrop-blur-xl border border-black/5">
+        <CardHeader className="pb-3">
+          <CardTitle className="text-lg font-semibold flex items-center">
+            <TrendingUp className="w-5 h-5 mr-2" />
+            This Week
+          </CardTitle>
+        </CardHeader>
+        <CardContent className="space-y-4">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center space-x-2">
+              <Eye className="w-4 h-4 text-blue-500" />
+              <span className="text-sm text-gray-600">Profile views</span>
+            </div>
+            <span className="font-semibold text-blue-600">+127</span>
+          </div>
+          <div className="flex items-center justify-between">
+            <div className="flex items-center space-x-2">
+              <Heart className="w-4 h-4 text-red-500" />
+              <span className="text-sm text-gray-600">Post engagements</span>
+            </div>
+            <span className="font-semibold text-red-600">+89</span>
+          </div>
+          <div className="flex items-center justify-between">
+            <div className="flex items-center space-x-2">
+              <Calendar className="w-4 h-4 text-green-500" />
+              <span className="text-sm text-gray-600">Events joined</span>
+            </div>
+            <span className="font-semibold text-green-600">3</span>
+          </div>
         </CardContent>
       </Card>
     </div>

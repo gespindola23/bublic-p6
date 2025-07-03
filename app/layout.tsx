@@ -4,6 +4,7 @@ import "./globals.css"
 import { Inter, Space_Grotesk } from "next/font/google"
 import { CreatePostModal } from "@/components/create-post-modal"
 import { CommandKHandler } from "@/components/command-k-handler"
+import { CommandPalette } from "@/components/command-palette"
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-sans" })
 
@@ -16,7 +17,7 @@ const spaceGrotesk = Space_Grotesk({
 export const metadata: Metadata = {
   title: "BUBLIC",
   description: "The Social Network for Founders.",
-    generator: 'v0.dev'
+  generator: "v0.dev",
 }
 
 export default function RootLayout({
@@ -29,6 +30,7 @@ export default function RootLayout({
       <body className={`min-h-screen bg-background font-sans antialiased ${inter.variable} ${spaceGrotesk.variable}`}>
         <CommandKHandler />
         <CreatePostModal />
+        <CommandPalette />
         {children}
       </body>
     </html>
